@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image-uploader/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -9,22 +10,9 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-// func connectDB() (*mongo.Client, context.CancelFunc, error) {
-// 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
-// 	if err != nil {
-// 		return nil, nil, err
-// 	}
-// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-// 	if err = client.Connect(ctx); err != nil {
-// 		return client, cancel, err
-// 	}
-// 	return client, cancel, err
-// }
-
 func main() {
 	// Get port
 	port := os.Getenv("PORT")
-	// port := "80"
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
@@ -44,9 +32,9 @@ func main() {
 	}))
 
 	// Routes
-	e.GET("/", Hello)
+	e.GET("/", handlers.Hello)
 	e.Static("/static", "images")
-	e.POST("/images", Create)
+	e.POST("/images", handlers.Create)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + port))
