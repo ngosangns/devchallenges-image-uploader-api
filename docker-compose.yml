@@ -1,8 +1,7 @@
 version: "2"
 
 services:
-
-  image-uploader:
+  app:
     image: image-uploader
     container_name: image-uploader
     build:
