@@ -1,11 +1,11 @@
 FROM golang:alpine
 
 USER root
-
 ENV PORT=8080
 
-COPY . .
+ADD . /go/src/app
+WORKDIR /go/src/app
 
 RUN go build -o image-uploader .
 
-CMD ./image-uploader
+CMD /go/src/app/image-uploader
