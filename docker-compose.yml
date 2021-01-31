@@ -1,17 +1,14 @@
-version: "2"
+version: "3.8"
 
 services:
   app:
-    image: image-uploader
+    image: image-uploader:latest
     container_name: image-uploader
     build:
       context: .
     ports:
-      - "8081:8081"
-    env_file:
-    - docker-env.list
-  # db:
-  #   image: mongo
-  #   container_name: mongo_db
-  #   ports:
-  #     - "27017:27017"
+      - 8081:8081
+    environment:
+      - PORT=8081
+    volumes:
+      - ./:/go/src/app

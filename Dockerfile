@@ -1,10 +1,10 @@
 FROM golang:alpine
-USER root
 
-# Move files to Go source path
-ADD . /go/src/app
+RUN mkdir -p /go/src/app
 WORKDIR /go/src/app
 
-# Build and run app
-RUN go build -o app .
-CMD ["/go/src/app/app"]
+RUN apk add git
+RUN GO111MODULE=off go get github.com/githubnemo/CompileDaemon
+RUN apk del git
+
+ENTRYPOINT CompileDaemon -build="go build -o app" -command="./app" -polling=true -color=true
