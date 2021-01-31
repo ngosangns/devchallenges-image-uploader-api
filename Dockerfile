@@ -6,6 +6,6 @@ ENV PORT=8080
 
 COPY . .
 
-RUN go build
+RUN go build -o image-uploader .
 
 CMD ./image-uploader
